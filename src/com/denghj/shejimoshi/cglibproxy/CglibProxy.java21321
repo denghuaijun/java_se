@@ -1,0 +1,38 @@
+package com.denghj.shejimoshi.cglibproxy;
+
+import com.denghj.shejimoshi.staticproxy.Hose;
+import com.denghj.shejimoshi.staticproxy.XiaoMing;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+
+import java.lang.reflect.Method;
+
+/**
+ * @author dhj
+ * @Description
+ * @Date Create in 16:48 2019/8/21
+ */
+public class CglibProxy implements MethodInterceptor{
+
+//    private Object target;
+//
+//    public CglibProxy(Object target){
+//        this.target=target;
+//    }
+
+    @Override
+    public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+        Object invoke = methodProxy.invokeSuper(o,objects);
+        return invoke;
+    }
+
+    public static void main(String[] args) {
+        CglibProxy cglibProxy = new CglibProxy();
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(XiaoMing.class);
+        enhancer.setCallback(cglibProxy);
+        Hose hose = (Hose) enhancer.create();
+        hose.mai();
+    }
+}
