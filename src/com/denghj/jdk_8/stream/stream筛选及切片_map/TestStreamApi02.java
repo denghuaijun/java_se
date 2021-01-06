@@ -16,6 +16,10 @@ import java.util.stream.Stream;
  * distinct-筛选，通过流所生成的元素的hashcode()和equals的方法去重
  * map-(映射)。接收lambda,将元素转换成其它形式或提取信息，接收一个函数作为参数，该函数会被用到每个元素上，并将其映射到一个新的元素
  * flatMap-(映射)，接收一个函数作为参数，并将流中的每个值换成另一个流，然后把所有的流连成一个流
+ * //分页：
+ * List<AccessAreaVo> areaVo = vos.stream()
+ *     .skip(pageable.getPageSize() * (pageable.getPageNumber() - 1))
+ *     .limit(pageable.getPageSize()).collect(Collectors.toList());
  */
 public class TestStreamApi02 {
     static List<Employee> employees = Arrays.asList(
