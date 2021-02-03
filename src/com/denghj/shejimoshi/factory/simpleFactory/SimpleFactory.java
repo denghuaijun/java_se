@@ -1,8 +1,12 @@
-package com.denghj.shejimoshi.factory;
+package com.denghj.shejimoshi.factory.simpleFactory;
+
+import com.denghj.shejimoshi.factory.Animal;
+import com.denghj.shejimoshi.factory.cat;
+import com.denghj.shejimoshi.factory.dog;
 
 /**
  * @author dhj
- * @Description 简单工厂方法
+ * @Description 简单工厂方法，违反了开闭原则（对扩展开放，对修改关闭），一旦增加新的动物了就会出现修改代码的情况
  * @Date Create in 15:53 2019/8/21
  */
 public class SimpleFactory {
@@ -16,6 +20,11 @@ public class SimpleFactory {
         }
         return animal;
     }
+
+    //也可以换成这样。。。。。。。。。。。
+    /*public  static Animal createCat(){
+        return new cat();
+    }*/
 
     public static void main(String[] args) {
         Animal animal = SimpleFactory.cerateAnimalObj("cat");

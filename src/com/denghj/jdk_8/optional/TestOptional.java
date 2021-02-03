@@ -21,6 +21,7 @@ public class TestOptional {
     @Test
     public void test(){
         Employee employee = new Employee();
+
         //创建optional实例
         Optional<Employee> optionalEmployee = Optional.of(employee);
         Employee emp = optionalEmployee.get();
