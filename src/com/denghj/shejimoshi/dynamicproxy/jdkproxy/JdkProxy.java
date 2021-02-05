@@ -1,4 +1,4 @@
-package com.denghj.shejimoshi.jdkproxy;
+package com.denghj.shejimoshi.dynamicproxy.jdkproxy;
 
 import com.denghj.shejimoshi.staticproxy.Hose;
 import com.denghj.shejimoshi.staticproxy.XiaoMing;
