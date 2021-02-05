@@ -19,11 +19,12 @@ public class TestTemporalAdjuster {
         LocalDateTime localDateTime = LocalDateTime.now();
         System.out.println(localDateTime);
         LocalDateTime localDateTime1 = localDateTime.withDayOfYear(36);
-        //System.out.println(localDateTime1);
+        System.out.println(localDateTime1);
         //使用时间矫正器来获取下一个周日
-
-        LocalDateTime with = localDateTime.with(TemporalAdjusters.dayOfWeekInMonth(1,DayOfWeek.MONDAY));
-        System.out.println(with);
+        LocalDateTime nextSunDay = localDateTime.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+        System.out.println("nextSunDay:"+nextSunDay);
+        LocalDateTime with = localDateTime.with(TemporalAdjusters.dayOfWeekInMonth(1,DayOfWeek.MONDAY));//获取当前月当前周的周一
+        System.out.println("with=:"+with);
         //由于TemporalAdjuster 是一个函数式function接口，故可以自定义矫正器,获取下一个工作日
         LocalDateTime localDateTime22 = localDateTime.with((temporal) -> {
             LocalDateTime localDateTime3 = (LocalDateTime) temporal;

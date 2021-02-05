@@ -20,10 +20,14 @@ public class TestAnnotation {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() throws NoSuchMethodException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class<TestAnnotation> aClass = TestAnnotation.class;
-        Method method = aClass.getMethod("testAnnotation", String.class);
+        Class<?> aClass1 = Class.forName("com.denghj.jdk_8.重复注解与类型注解.TestAnnotation");
+        TestAnnotation testAnnotation = aClass.newInstance();
+        TestAnnotation o = (TestAnnotation) aClass1.newInstance();
+        System.out.println(testAnnotation);
+        /*Method method = aClass.getMethod("testAnnotation", String.class);
         MyAnnotation[] myAnnotations = method.getAnnotationsByType(MyAnnotation.class);
-        Stream.of(myAnnotations).forEach(myAnnotation -> System.out.println(myAnnotation.value()));
+        Stream.of(myAnnotations).forEach(myAnnotation -> System.out.println(myAnnotation.value()));*/
     }
 }

@@ -78,9 +78,9 @@ public class TestSimpleDateFormater {
         String dateStr="2020-01-05 18:00:00";
         //创建线程池
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-        List<Future<LocalDate>> futureList = new ArrayList<>();
+        List<Future<LocalDateTime>> futureList = new ArrayList<>();
         for (int i=0;i<10;i++){
-            Future<LocalDate> submit = executorService.submit(() -> LocalDate.parse(dateStr,dateTimeFormatter));
+            Future<LocalDateTime> submit = executorService.submit(() -> LocalDateTime.parse(dateStr,dateTimeFormatter));
             futureList.add(submit);
         }
         futureList.forEach(dateFuture -> {
