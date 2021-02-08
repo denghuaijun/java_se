@@ -2,10 +2,14 @@ package com.denghj.注解and反射.reflect;
 
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.stream.Stream;
 
 
-public class Test02 {
+public class TestReflect {
 
     /**
      * 测试创建类Class对象的方式
@@ -82,6 +86,51 @@ public class Test02 {
         for (Field field : fields) {
             System.out.println(field.getName());
         }
+    }
+    /**
+     * 测试动态创建对象执行方法
+     */
+    @Test
+    public void testReflect() throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
+        Class<?> aClass = Class.forName("com.denghj.注解and反射.reflect.User");
+        //1、使用无参构造利用反射创建对象示例
+        User user = (User) aClass.newInstance();
+        System.out.println(user.toString());
+        Method[] methods = aClass.getMethods();
+        Method[] declaredMethods = aClass.getDeclaredMethods();
+        for (Method method : methods) {
+            System.out.println(method);
+        }
+        System.out.println("--------------declaredMethod-----------");
+        for (Method declaredMethod : declaredMethods) {
+            System.out.println(declaredMethod);
+        }
+        Field[] fields = aClass.getFields();
+        Field[] declaredFields = aClass.getDeclaredFields();
+        for (Field field : fields) {
+            System.out.println(field);
+        }
+        System.out.println("..................declaredFields...............");
+        for (Field declaredField : declaredFields) {
+            System.out.println(declaredField);
+        }
+        System.out.println("使用构造器创建对象实例。。。。。");
+        Constructor<?>[] constructors = aClass.getConstructors();
+        Stream.of(constructors).forEach(constructor -> System.out.println(constructor));
+        Constructor<?> constructor = aClass.getConstructor(int.class, int.class, String.class);
+        System.out.println(constructor);
+        User instance = (User) constructor.newInstance(1, 20, "邓怀俊");
+        System.out.println("有参创建对象："+instance.toString());
+
+        Field userName = aClass.getDeclaredField("userName");
+        userName.setAccessible(true);
+        userName.set(instance,"ddd");
+        System.out.println(instance.getUserName());
+
+        Method method = aClass.getMethod("setAge", int.class);
+        method.invoke(instance,30);
+        System.out.println(instance.toString());
+
     }
 
 }
