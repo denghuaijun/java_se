@@ -24,13 +24,14 @@ public class NioSelectorServer {
         serverSocketChannel.socket().bind(new InetSocketAddress(9000));
         //设置ServerSocketChannel 为非阻塞
         serverSocketChannel.configureBlocking(false);
-        //打开selector处理channel，即创建epoll
+        //打开selector处理channel，即底层调用了c一个epfd=epoll_create函数创建了epoll实例，返回一个文件描述符，类似于epoll对象的引用
         Selector selector = Selector.open();
         //把服务端ServerSocketChannel注册到selector上，并且设置selector对客户端的accept操作进行感知
         SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         System.out.println("NIO selector 服务端启动成功。。。。");
         while(true){
             //阻塞等待需要处理的事件发生,这个事件有可能是发生在客户端与服务端之间建立连接，也可能发生在客户端读取消息
+            //底层调用epoll_ctl将渠道，及事件房子啊epoll实例集合中,epoll_wait方法阻塞等待事件
             selector.select();
             //获取selector中注册的全部事件的selectionKey 示例
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
