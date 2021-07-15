@@ -3,6 +3,8 @@ package com.denghj.jdk_8.optional;
 import com.denghj.jdk_8.lambda.基本语法.Employee;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -21,16 +23,27 @@ public class TestOptional {
     @Test
     public void test(){
         Employee employee = new Employee();
-
+        Employee employee1=null;
+        Map<String,Object> map = new HashMap<>();
+        map.put("a",123);
+        System.out.println(Optional.ofNullable(map.get("a")).map(o ->Integer.valueOf(o.toString())).orElse(null));
         //创建optional实例
         Optional<Employee> optionalEmployee = Optional.of(employee);
         Employee emp = optionalEmployee.get();
-        System.out.println(emp);
+       // System.out.println(emp);
         //通过null来定位空指针异常
-        Optional<Object> o = Optional.of(null);//会报空指针，快速定位发生空指针异常的位置
+        //Optional<Object> o = Optional.of(null);//会报空指针，快速定位发生空指针异常的位置
         //构造空Optional实例
         Optional<Employee> empty = Optional.empty();
         //创建一个空对象实例
-        Optional<Employee> optional = Optional.ofNullable(null);
+        Optional<Employee> optional = Optional.ofNullable(employee);
+        System.out.println(optional.get());
+            System.out.println(optional.isPresent());
+        Optional<Employee> optional2 = Optional.ofNullable(employee1);
+        System.out.println(optional2.isPresent());
+        System.out.println(optional2.orElse(employee1));
+
+        //System.out.println(optional2.get());
+
     }
 }

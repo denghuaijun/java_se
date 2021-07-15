@@ -28,7 +28,8 @@ public class NettyServer {
                     .channel(NioServerSocketChannel.class)
                     //初始化服务器连接队列大小，服务器处理客户端连接请求是顺序处理的，所以同一时间只能处理同一个客户端
                     //多个客户端同时来的时候，服务端将不能处理的客户端请求都放在队列中等待
-                    .option(ChannelOption.SO_BACKLOG,1024)
+                  //  .option(ChannelOption.SO_BACKLOG,1024)
+                    .option(ChannelOption.RCVBUF_ALLOCATOR,new AdaptiveRecvByteBufAllocator())
                     //对workGroup的SocketChannel设置处理器
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
